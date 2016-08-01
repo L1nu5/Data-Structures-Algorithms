@@ -1,3 +1,11 @@
+/**
+
+	TODO:
+	- Find/Maintain Minimum element for a stack
+	- Implement PlateStack class 
+
+ */
+
 #include <iostream>
 
 #define MAX 12
@@ -18,6 +26,8 @@ public:
 	bool isEmpty();
 	void reverseStack();
 	void insertAtBottom(int);
+	void sortStack();
+	void sortedInsert(int);
 };
 
 Stack :: Stack()
@@ -63,6 +73,29 @@ void Stack :: reverseStack()
 	}
 }
 
+void Stack :: sortedInsert(int ele)
+{
+	int temp;
+	if(isEmpty() || ele > stack[top])
+		push(ele);
+	else
+	{
+		temp = pop();
+		sortedInsert(ele);
+		push(temp);
+	}
+}
+
+void Stack :: sortStack()
+{
+	if(!isEmpty())
+	{
+		int temp = pop();
+		sortStack();
+		sortedInsert(temp);
+	}
+}
+
 void Stack :: insertAtBottom(int data)
 {
 	if(isEmpty())
@@ -78,19 +111,13 @@ void Stack :: insertAtBottom(int data)
 int main()
 {
 	Stack stk;
+	stk.push(-5);
 	stk.push(10);
-	stk.push(12);
-	stk.push(15);
+	stk.push(3);
+	stk.push(9);
 
-	stk.reverseStack();
-	for(int i=0;i<3;i++)
-		cout << " " << stk.pop();
-
-	stk.push(15);
-	stk.push(13);
-	stk.push(10);
-	stk.reverseStack();
-	for(int i=0;i<3;i++)
+	stk.sortStack();
+	for(int i=0;i<4;i++)
 		cout << " " << stk.pop();
 
 	return 0;

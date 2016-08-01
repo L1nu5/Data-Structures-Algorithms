@@ -1,8 +1,9 @@
 /*
  * A Basic implementation of Singly Linked List
  * Operations: Insertion, Deletion, Updating, Searching, Reversing & Rotation
- * Challenges: Templating the class, Addition of 2 numbers represented by Linked List
+ * Challenges: Making the Class Generic
  * An excercise for solving all the problems related to Linked Lists.
+ * More Challeges: Union & Intersection of Linked Lists, Find middle node(s) of List
  */
 
 #include <cmath>
@@ -50,6 +51,7 @@
  	void printList();
  	void reverseList();
  	void removeDups();
+ 	void findMiddle();
  	LinkedList addLists(LinkedList);
  	int getLength();
 
@@ -287,6 +289,35 @@
  	}
  }
 
+ void LinkedList :: findMiddle()
+ {
+ 	Node *slow,*fast,*mid;
+ 	slow = head;
+ 	fast = head;
+
+ 	// odd or even, get ref to mid node
+ 	while(fast -> next != NULL && fast -> next -> next != NULL)
+ 	{
+ 		slow = slow -> next;
+ 		fast = fast -> next -> next;
+ 	}
+
+ 	if(fast -> next == NULL)
+ 	{
+ 		mid = slow;
+ 		cout << "Mid is : " << mid -> data << endl;
+ 	}
+ 	else
+ 	{
+ 		mid = slow -> next;
+ 		cout << "Double middle case- " << endl;
+ 		cout << "first mid = " << slow -> data << endl;
+ 		cout << "second mid = " << mid -> data << endl;
+ 	}
+ }
+
+/* Main - To Test LinkedList class */
+
  int main()
  {
  	LinkedList listA;
@@ -299,9 +330,10 @@
  	listA.insertNode(4);
  	listA.insertNode(3);
  	listA.insertNode(2);
+ 	listA.insertNode(3);
  	listA.printList();
 
- 	listA.removeDups();
+ 	listA.findMiddle();
  	listA.printList();
 
  	return 0;

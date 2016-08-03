@@ -1,4 +1,12 @@
+/**
+	TODO:
+	- getHeight, getWidth, isSubtreeOf, inPlaceMirroring
+	- AVL balancing(ez)
+	- Level Order Traversal
+ */
+
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -31,11 +39,22 @@ public:
 	BTNode *root;
 	BinaryTree();
 	BinaryTree(int);
-	void insertNode(int,BTNode*);
+	BTNode* insertNode(int,BTNode*);
+	BTNode* mirrorTree(BTNode*);
+	int getWidth(BTNode*);
+	int getHeight(BTNode*);
 	void inOrder(BTNode*);
 	void preOrder(BTNode*);
 	void postOrder(BTNode*);
+	void bfsTraversal(BTNode*);
+	void inPlaceMirror(BTNode*);
 };
+
+typedef struct WdtAssist
+{
+	BTNode *node;
+	int level;
+}WdtAssist;
 
 BinaryTree :: BinaryTree()
 {
@@ -48,14 +67,104 @@ BinaryTree :: BinaryTree(int data)
 	root -> left = root -> right = NULL;
 }
 
-void BinaryTree :: insertNode(int data,BTNode *node)
+// Need Suggestions on insertion in Binary Tree & NOT Binary Search Tree.
+// The following implementation, goes on adding nodes in right subtree.
+BTNode* BinaryTree :: insertNode(int data,BTNode *node)
 {
 	if(node == NULL)
 		node = new BTNode(data);
 	else if(node -> left == NULL)
-		insertNode(data,node->left);
-	else if(node -> right == NULL)
-		insertNode(data,node->right);
+		node -> left = insertNode(data,node->left);
+	else
+		node -> right = insertNode(data,node->right); 
+
+	return node;
+}
+
+BTNode* BinaryTree :: mirrorTree(BTNode* node)
+{
+	if(!node)
+		return NULL;
+	else
+	{
+		BTNode* temp = new BTNode(node->data);
+		temp -> left = mirrorTree(node->right);
+		temp -> right = mirrorTree(node->left);
+
+		return temp;
+	}
+}
+
+void BinaryTree :: inPlaceMirror(BTNode* node)
+{
+	if(!node)
+		return;
+	else
+	{
+		BTNode *temp = node -> left;
+		node -> left = node -> right;
+		node -> right = temp;
+		
+		inPlaceMirror(node->left);
+		inPlaceMirror(node->right);
+	}
+}
+
+int BinaryTree :: getHeight(BTNode* node)
+{
+
+}
+
+// Implement bfsTraversal before getWidth.
+int BinaryTree :: getWidth(BTNode* node)
+{
+
+}
+
+void BinaryTree :: bfsTraversal(BTNode* start)
+{
+	unsigned lvl = 0;
+	unsigned count[100];
+
+	queue <WdtAssist> q;
+	WdtAssist wa,temp,left,right;
+
+	for(int i=0;i<100;i++)
+		count[i] = 0;
+
+	wa.node = start;
+	wa.level = lvl;
+
+	q.push(wa);
+	while(!q.empty())
+	{
+		temp = q.front();
+		cout << " " << temp.node -> data;
+		count[temp.level]++;
+		q.pop();
+
+		lvl ++;
+		left.node = temp.node -> left;
+		left.level = lvl;  
+				
+		right.node = temp.node -> right;
+		right.level = lvl;
+		
+		if(left.node)
+			q.push(left);
+
+		if(right.node)
+			q.push(right);
+	}
+
+	unsigned max = count[0];
+	for(int i=1;i<=lvl;i++)
+	{
+		if(max < count[i])
+			max = count[i];
+	}
+
+	cout << endl<< "MAXWIDTH : "<< max;
 }
 
 void BinaryTree :: inOrder(BTNode* node)
@@ -100,12 +209,25 @@ int main()
 	binTree.insertNode(50,binTree.root);
 	binTree.insertNode(60,binTree.root);
 
+	// cout << endl;
+	// binTree.inOrder(binTree.root);
+	// cout << endl;
+	// binTree.postOrder(binTree.root);
+	// cout << endl;
+	// binTree.preOrder(binTree.root);
+	// cout << endl;
+
+	//binTree.bfsTraversal(binTree.root);
 	cout << endl;
 	binTree.inOrder(binTree.root);
 	cout << endl;
-	binTree.postOrder(binTree.root);
+	binTree.inPlaceMirror(binTree.root);
+	binTree.inOrder(binTree.root);
+	BTNode *mirror;
+	mirror = binTree.mirrorTree(binTree.root);
 	cout << endl;
-	binTree.preOrder(binTree.root);
+	binTree.inOrder(mirror);
+
 
 	return 0;
 }

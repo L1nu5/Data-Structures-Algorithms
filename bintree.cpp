@@ -5,8 +5,9 @@
 	- Level Order Traversal
  */
 
-#include <iostream>
+#include <cmath>
 #include <queue>
+#include <iostream>
 
 using namespace std;
 
@@ -41,13 +42,17 @@ public:
 	BinaryTree(int);
 	BTNode* insertNode(int,BTNode*);
 	BTNode* mirrorTree(BTNode*);
-	int getWidth(BTNode*);
 	int getHeight(BTNode*);
 	void inOrder(BTNode*);
 	void preOrder(BTNode*);
 	void postOrder(BTNode*);
 	void bfsTraversal(BTNode*);
 	void inPlaceMirror(BTNode*);
+	bool myAncestors(BTNode*,int);
+	
+	//yet to finish 
+	int getWidth(BTNode*);
+	int isBalanced(BTNode*);
 };
 
 typedef struct WdtAssist
@@ -112,7 +117,9 @@ void BinaryTree :: inPlaceMirror(BTNode* node)
 
 int BinaryTree :: getHeight(BTNode* node)
 {
-
+	if(node)
+		return 1+max(getHeight(node->left),getHeight(node->right));
+	return 0;
 }
 
 // Implement bfsTraversal before getWidth.
@@ -199,6 +206,28 @@ void BinaryTree :: postOrder(BTNode* node)
 	}
 }
 
+bool BinaryTree :: myAncestors(BTNode* node,int target)
+{
+	if(node == NULL)
+		return false;
+
+	if(node -> data == target)
+		return true;
+
+	if(myAncestors(node->left,target) || myAncestors(node->right,target))
+	{
+		cout << node -> data << " ";
+		return true;
+	}
+
+	return false;
+}
+
+int BinaryTree :: isBalanced(BTNode* node)
+{
+	return (getHeight(node->left)-getHeight(node->right));
+}
+
 int main()
 {
 	BinaryTree binTree(5);
@@ -209,25 +238,13 @@ int main()
 	binTree.insertNode(50,binTree.root);
 	binTree.insertNode(60,binTree.root);
 
-	// cout << endl;
-	// binTree.inOrder(binTree.root);
-	// cout << endl;
-	// binTree.postOrder(binTree.root);
-	// cout << endl;
-	// binTree.preOrder(binTree.root);
-	// cout << endl;
 
-	//binTree.bfsTraversal(binTree.root);
 	cout << endl;
 	binTree.inOrder(binTree.root);
+	cout << endl << "Height : " << binTree.getHeight(binTree.root);
+	cout << endl << "Balance check : " << binTree.isBalanced(binTree.root);
 	cout << endl;
-	binTree.inPlaceMirror(binTree.root);
-	binTree.inOrder(binTree.root);
-	BTNode *mirror;
-	mirror = binTree.mirrorTree(binTree.root);
-	cout << endl;
-	binTree.inOrder(mirror);
-
+	binTree.myAncestors(binTree.root,60);
 
 	return 0;
 }

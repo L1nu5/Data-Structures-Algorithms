@@ -22,6 +22,7 @@ public:
 	void findSumX(int); // Variant of above, efficient
 	int findMajorityEle();
 	int findCandidate();
+	int searchInCircularSorted(int);
 };
 
 int &ArrayProblems :: operator[](int i)
@@ -140,6 +141,36 @@ int ArrayProblems :: findMajorityEle(int x)
 		return x;
 	else
 		return 0;
+}
+
+int ArrayProblems :: searchInCircularSorted(int x)
+{
+	int low = 0, high = size -1;
+
+	while(low <= high)
+	{
+		int mid = (low + high)/2;
+		if(array[mid] == x)
+			returm mid;
+
+		if(array[mid] <= array[high])
+		{
+			if(x > array[mid] && x <= array[high])
+				low = mid + 1;
+			else
+				high = mid - 1;
+		}
+		else
+		{
+			if(x < array[mid] && x >= array[low])
+				high = mid - 1;
+			else
+				low = mid + 1;
+		}
+		
+	}
+
+	return -1;
 }
 
 int* ArrayProblems :: getLocation()

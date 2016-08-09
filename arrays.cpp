@@ -20,9 +20,12 @@ public:
 	//Problems & Solutions
 	void findSumXforTwo(int); /* Check whether arrays contains two numbers whose sum = x */
 	void findSumX(int); // Variant of above, efficient
+	void revRotate(int);
+	void reverse(int,int);
 	int findMajorityEle();
 	int findCandidate();
 	int searchInCircularSorted(int);
+
 };
 
 int &ArrayProblems :: operator[](int i)
@@ -108,6 +111,29 @@ void ArrayProblems :: findSumX(int x)
 			cout << endl << "Pair with given sum exists: " << array[i] << " " << temp;
 		binMap[array[i]] = 1;
 	}
+}
+
+void ArrayProblems :: reverse(int start,int end)
+{	
+	if(start > 0 && end < size)
+	{
+		while(start <= end)
+		{
+			int temp = array[start];
+			array[start] = array[end];
+			array[end] = temp;
+
+			start ++;
+			end --;
+		}
+	}
+}
+
+void ArrayProblems :: revRotate(int d)
+{
+	reverse(0,d);
+	reverse(d,size-1);
+	reverse(0,size-1);
 }
 
 int ArrayProblems :: findCandidate()

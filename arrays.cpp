@@ -22,6 +22,7 @@ public:
 	void findSumX(int); // Variant of above, efficient
 	void revRotate(int);
 	void reverse(int,int);
+	void printLeaders();
 	int findMajorityEle();
 	int findCandidate();
 	int searchInCircularSorted(int);
@@ -134,6 +135,29 @@ void ArrayProblems :: revRotate(int d)
 	reverse(0,d);
 	reverse(d,size-1);
 	reverse(0,size-1);
+}
+
+void ArrayProblems :: printLeaders()
+{
+	if(size == 1){
+		cout << "Leader: " << array[0];
+		return ;
+	}
+
+	if(size == 2){
+		cout << "Leader: " << max(array[1],array[0]);
+		return ;
+	}
+
+	int rightMax = max(array[size-1],array[size-2]);
+	cout << "Leader: " << rightMax;
+	for(int i=size-3;i>=0;i--)
+	{
+		if(rightMax < array[i]){
+			cout << "Leader: " << array[i];
+			rightMax = array[i];
+		}
+	}
 }
 
 int ArrayProblems :: findCandidate()

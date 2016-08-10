@@ -23,6 +23,7 @@ public:
 	void revRotate(int);
 	void reverse(int,int);
 	void printLeaders();
+	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
 	int searchInCircularSorted(int);
@@ -179,6 +180,21 @@ int ArrayProblems :: findCandidate()
 	}
 
 	return array[maj_index];
+}
+
+int ArrayProblems :: findMaxSumNoAdj()
+{
+	int sum[size];
+	sum[0] = array[0];
+	sum[1] = max(array[0],array[1]);
+
+	for(int i=2;i<size;i++)
+	{
+		int mxm = max(array[i]+sum[i-2],array[i]);
+		sum[i] = max(mxm,sum[i-1]);
+	}
+
+	return sum[size-1];
 }
 
 int ArrayProblems :: findMajorityEle(int x)

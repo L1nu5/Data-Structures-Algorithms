@@ -1,3 +1,5 @@
+// Added Dutch National Flag problem & solution
+
 #include <iostream>
 #include <algorithm>
 
@@ -18,11 +20,13 @@ public:
 	int &operator[](int);
 
 	//Problems & Solutions
-	void findSumXforTwo(int); /* Check whether arrays contains two numbers whose sum = x */
 	void findSumX(int); // Variant of above, efficient
+	void findSumXforTwo(int); /* Check whether arrays contains two numbers whose sum = x */
 	void revRotate(int);
 	void reverse(int,int);
+	void swap(int &,int &);
 	void printLeaders();
+	void segregateDutch();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -159,6 +163,38 @@ void ArrayProblems :: printLeaders()
 			rightMax = array[i];
 		}
 	}
+}
+
+void ArrayProblems :: segregateDutch()
+{
+	int mid = 0;
+	int low = 0;
+	int high = size - 1;
+
+	while(mid <= high)
+	{
+		switch(mid)
+		{
+			case 0: swap(array[mid],array[low]);
+					mid++;
+					low++;
+					break;
+			case 1:
+					mid++;
+					break;
+			case 2:
+					swap(array[mid],array[high]);
+					high--;
+					break;
+		}
+	}
+}
+
+void ArrayProblems :: swap(int &a,int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
 }
 
 int ArrayProblems :: findCandidate()

@@ -1,5 +1,6 @@
 // Added Dutch National Flag problem & solution
 
+#include <cmath>
 #include <iostream>
 #include <algorithm>
 
@@ -27,6 +28,7 @@ public:
 	void swap(int &,int &);
 	void printLeaders();
 	void segregateDutch();
+	void twoRepeaters();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -190,6 +192,31 @@ void ArrayProblems :: segregateDutch()
 	}
 }
 
+
+// Strictly follows that numbers > 0 & numbers <= n
+void ArrayProblems :: twoRepeaters()
+{
+	int S=0,P=1;
+	int n = size - 2;
+	int D;
+	int x,y;
+
+	for(int i=0;i<size;i++)
+	{
+		S = S + array[i];
+		P = P * array[i];
+	}
+
+	S = S - n*(n+1)/2;
+	P = P / fact(n);
+
+	D = sqrt(S*S-4*P);
+	x = (D + S)/2;
+	y = (S - D)/2;
+
+	cout << 	endl << "Repeaters : " << x << " " << y;
+}
+
 void ArrayProblems :: swap(int &a,int &b)
 {
 	int temp = a;
@@ -285,4 +312,9 @@ int main()
 	ArrayProblems prb;
 
 	return 0;
+}
+
+int fact(int n)
+{
+	return (n == 0)?1:n*fact(n-1);
 }

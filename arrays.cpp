@@ -1,4 +1,6 @@
 // Added Dutch National Flag problem & solution
+// Some of the following functions work as set of 2
+
 
 #include <cmath>
 #include <iostream>
@@ -21,19 +23,20 @@ public:
 	int &operator[](int);
 
 	//Problems & Solutions
-	void findSumX(int); // Variant of above, efficient
-	void findSumXforTwo(int); /* Check whether arrays contains two numbers whose sum = x */
+	void findSumX(int); 
+	void findSumXforTwo(int); 
 	void revRotate(int);
 	void reverse(int,int);
 	void swap(int &,int &);
 	void printLeaders();
 	void segregateDutch();
 	void twoRepeaters();
+	void findUnsortedRegion();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
 	int searchInCircularSorted(int);
-
+	int maxContigSum();
 };
 
 int &ArrayProblems :: operator[](int i)
@@ -107,6 +110,7 @@ void ArrayProblems :: findSumXforTwo(int x)
 	cout << endl << "Pairs found : " << count ;
 }
 
+// A little different approach, for the same problem solved by the solution above
 void ArrayProblems :: findSumX(int x)
 {
 	int temp;
@@ -144,6 +148,7 @@ void ArrayProblems :: revRotate(int d)
 	reverse(0,size-1);
 }
 
+// An element is a leader if it's greater than the elements on the right side of its position
 void ArrayProblems :: printLeaders()
 {
 	if(size == 1){
@@ -217,6 +222,53 @@ void ArrayProblems :: twoRepeaters()
 	cout << 	endl << "Repeaters : " << x << " " << y;
 }
 
+void ArrayProblems :: findUnsortedRegion()
+{
+	int max,min;
+
+	for(int s=0;s<size;s++)
+	{
+		if(array[s] > array[s+1])
+			break;
+	}
+
+	if(s == size) return ;
+
+	for(int e=size-1;e>=0;e--)
+		if(array[e] < array[e-1])
+			break;
+
+	max = array[s];
+	min = array[s];
+	for(int i=s+1;i<=e;i++)
+	{
+		if(min > array[i])
+			min = array[i];
+		if(max < array[i])
+			max = array[i];
+	}
+
+	for(int i=0;i<s;i++)
+	{
+		if(array[i] > min)
+		{
+			s = i;
+			break;
+		}
+	}
+
+	for(int i=n-1;i>=e+1;i--)
+	{
+		if(array[i] < max)
+		{
+			e = i;
+			break;
+		}
+	}
+
+	cout << "Start: " << s << " " << "End: "<< e << endl;
+}
+
 void ArrayProblems :: swap(int &a,int &b)
 {
 	int temp = a;
@@ -245,6 +297,7 @@ int ArrayProblems :: findCandidate()
 	return array[maj_index];
 }
 
+// Moderately difficult problem
 int ArrayProblems :: findMaxSumNoAdj()
 {
 	int sum[size];
@@ -300,6 +353,23 @@ int ArrayProblems :: searchInCircularSorted(int x)
 	}
 
 	return -1;
+}
+
+int ArrayProblems :: maxContigSum()
+{
+	int maxSum = -999999;
+	int maxMgr = 0;
+
+	for(int i=1;i<size;i++)
+	{
+		maxMgr = maxMgr + array[i];
+		if(maxSum < maxMgr)
+			maxSum = maxMgr;
+		if(maxMgr < 0)
+			maxMgr = 0;
+	}
+
+	return maxSum;	
 }
 
 int* ArrayProblems :: getLocation()

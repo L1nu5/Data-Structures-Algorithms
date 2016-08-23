@@ -357,16 +357,13 @@ int ArrayProblems :: searchInCircularSorted(int x)
 
 int ArrayProblems :: maxContigSum()
 {
-	int maxSum = -999999;
-	int maxMgr = 0;
+	int maxSum = array[0];
+	int currMax = array[0];
 
 	for(int i=1;i<size;i++)
 	{
-		maxMgr = maxMgr + array[i];
-		if(maxSum < maxMgr)
-			maxSum = maxMgr;
-		if(maxMgr < 0)
-			maxMgr = 0;
+		currMax = max(array[i],currMax + array[i]);
+		maxSum = max(currMax,maxSum);
 	}
 
 	return maxSum;	

@@ -32,11 +32,13 @@ public:
 	void segregateDutch();
 	void twoRepeaters();
 	void findUnsortedRegion();
+	void moveZeroesToEnd();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
 	int searchInCircularSorted(int);
 	int maxContigSum();
+
 };
 
 int &ArrayProblems :: operator[](int i)
@@ -108,6 +110,19 @@ void ArrayProblems :: findSumXforTwo(int x)
 	}
 
 	cout << endl << "Pairs found : " << count ;
+}
+
+void ArrayProblems :: moveZeroesToEnd()
+{
+	int count = 0;
+	for(int i=0;i<size;i++)
+	{
+		if(array[i])
+			array[count++] = array[i]
+	}
+
+	while(count < n)
+		array[count++] = 0;
 }
 
 // A little different approach, for the same problem solved by the solution above

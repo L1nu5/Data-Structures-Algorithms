@@ -34,6 +34,7 @@ public:
 	void findUnsortedRegion();
 	void moveZeroesToEnd();
 	void findTotalOnes(int,int);
+	void printDistinct();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -225,7 +226,6 @@ void ArrayProblems :: findTotalOnes(int low,int high)
 			}		
 		if(array[mid] == 1)
 			findTotalOnes(mid+1,high);
-
 		findTotalOnes(low,mid-1);
 	}
 }
@@ -300,6 +300,19 @@ void ArrayProblems :: findUnsortedRegion()
 	}
 
 	cout << "Start: " << s << " " << "End: "<< e << endl;
+}
+
+void ArrayProblems :: printDistinct()
+{
+	sort(&array[0],&array[size-1]);
+
+	for(int i=0;i<size;i++)
+	{
+		while(i < n-1 && array[i] == array[i+1])
+			i++;
+
+		cout << " " << array[i];
+	}
 }
 
 void ArrayProblems :: swap(int &a,int &b)

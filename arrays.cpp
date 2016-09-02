@@ -33,6 +33,7 @@ public:
 	void twoRepeaters();
 	void findUnsortedRegion();
 	void moveZeroesToEnd();
+	void findTotalOnes(int,int);
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -209,6 +210,23 @@ void ArrayProblems :: segregateDutch()
 					high--;
 					break;
 		}
+	}
+}
+
+void ArrayProblems :: findTotalOnes(int low,int high)
+{
+	if(high >= low)
+	{
+		int mid = (low+high)/2;
+		if((mid == high || array[mid+1] == 0) && (array[mid] == 1))
+			{
+				cout << "Total 1s: " << mid+1;
+				return ;
+			}		
+		if(array[mid] == 1)
+			findTotalOnes(mid+1,high);
+
+		findTotalOnes(low,mid-1);
 	}
 }
 

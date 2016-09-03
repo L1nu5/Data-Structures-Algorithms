@@ -3,6 +3,7 @@
 
 
 #include <cmath>
+#include <stack>
 #include <iostream>
 #include <algorithm>
 
@@ -37,6 +38,7 @@ public:
 	void findMinMissing(int,int);
 	void printDistinct();
 	void printEquilibrium();
+	void printNGE();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -354,6 +356,28 @@ void ArrayProblems :: printEquilibrium()
 
 	cout << endl << "none";
 	return;
+}
+
+void ArrayProblems :: printNGE()
+{
+	stack<int> stk;
+	int i=1;
+	stk.push_back(array[0]);
+	while(!stk.empty())
+	{
+		x = array[i];
+		while(x > stk.back())
+		{
+			int temp = stk.pop_back();
+			cout << "NGE pair: " << temp << " " << x; 
+		}
+
+		if(stk.back() > x)
+			stk.push_back(array[i]);
+
+		stk.push_back(x);
+		i++;
+	}
 }
 
 void ArrayProblems :: swap(int &a,int &b)

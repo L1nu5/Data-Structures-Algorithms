@@ -36,6 +36,7 @@ public:
 	void findTotalOnes(int,int);
 	void findMinMissing(int,int);
 	void printDistinct();
+	void printEquilibrium();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -330,6 +331,29 @@ void ArrayProblems :: findMinMissing(int low,int high)
 		findMinMissing(low,mid);
 	else
 		findMinMissing(mid+1,high);
+}
+
+void ArrayProblems :: printEquilibrium()
+{
+	int total = 0,leftSum = 0;
+
+	for(int i=0;i<size;i++)
+		total += array[i];
+
+	for(int i=0;i<size;i++)
+	{
+		total -= array[i];
+
+		if(leftSum == total){
+			cout << endl << " Index : " << i;
+			return ;
+		}
+
+		leftSum += array[i];
+	}
+
+	cout << endl << "none";
+	return;
 }
 
 void ArrayProblems :: swap(int &a,int &b)

@@ -39,6 +39,8 @@ public:
 	void printDistinct();
 	void printEquilibrium();
 	void printNGE();
+	void printMaximum();
+	void findMinDistance(int,int);
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -308,7 +310,7 @@ void ArrayProblems :: findUnsortedRegion()
 
 void ArrayProblems :: printDistinct()
 {
-	sort(&array[0],&array[size-1]);
+	sort(array,array+size);
 
 	for(int i=0;i<size;i++)
 	{
@@ -319,13 +321,15 @@ void ArrayProblems :: printDistinct()
 	}
 }
 
+// 3rd September 2016
 void ArrayProblems :: findMinMissing(int low,int high)
 {
 	if(low > high)
-		return end + 1;
+		return ;
 
-	if(low != array[low])
+	if(low != array[low]){
 		return low;
+	}
 
 	int mid = (low+high)/2;
 
@@ -378,6 +382,50 @@ void ArrayProblems :: printNGE()
 		stk.push_back(x);
 		i++;
 	}
+}
+
+void ArrayProblems :: findMinDistance(int x,int y)
+{
+	int i,prev;
+	int minDist = INT_MAX;
+	for(i=0;i<n;i++)
+	{
+		if(array[i] == x || array[i] == y){
+			prev = i;
+			break;
+		}
+	}
+
+	for(;i<n;i++)
+	{
+		if(array[i] == x || array[i] == y)
+		{
+			if(array[prev] != array[i] && (i-prev) < minDist)
+			{
+				minDist = i;
+				prev = i;
+			}	
+			else
+				prev = i;
+		}
+	}
+
+	cout << endl << "Minimum Distance : " << minDist;
+}
+
+//
+
+void ArrayProblems :: printMaximum()
+{
+	cout << endl;
+	sort(array,array+size,myCompare);
+	for(int i=0;i<size;i++)
+		cout << array[i];
+}
+
+bool myCompare(string x,string y)
+{
+	return x+y > y+x; 
 }
 
 void ArrayProblems :: swap(int &a,int &b)

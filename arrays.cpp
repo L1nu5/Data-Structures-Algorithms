@@ -42,6 +42,7 @@ public:
 	void printMaximum();
 	void findMinDistance(int,int);
 	void findDuplicates();
+	int findFixedPoint(int,int);
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -429,6 +430,21 @@ void ArrayProblems :: findDuplicates()
 	}
 }
 
+int ArrayProblems :: findFixedPoint(int low,int high)
+{
+	if(high >= low)
+	{
+		int mid = (low + high) / 2;
+		if(mid == array[mid])
+			return mid;
+		else if(mid > array[mid])
+			return findFixedPoint(mid+1,high);
+		else
+			return findFixedPoint(low,mid-1);
+	}
+
+	return -1;
+}	
 
 // 
 void ArrayProblems :: printMaximum()

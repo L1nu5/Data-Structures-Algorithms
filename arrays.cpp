@@ -41,6 +41,7 @@ public:
 	void printNGE();
 	void printMaximum();
 	void findMinDistance(int,int);
+	void findDuplicates();
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
@@ -413,8 +414,23 @@ void ArrayProblems :: findMinDistance(int x,int y)
 	cout << endl << "Minimum Distance : " << minDist;
 }
 
-//
+// 5th September 2016
+//Requires numbers to be in range from 0 to N
 
+void ArrayProblems :: findDuplicates()
+{
+	cout << endl << "Repeating Elements : ";
+	for(int i=0;i<n;i++)
+	{
+		if(A[abs(A[i])] >= 0)
+			A[abs(A[i])] = - A[abs(A[i])];
+		else
+			cout << endl << "Duplicate : " << A[i];	
+	}
+}
+
+
+// 
 void ArrayProblems :: printMaximum()
 {
 	cout << endl;

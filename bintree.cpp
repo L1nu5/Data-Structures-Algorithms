@@ -49,7 +49,10 @@ public:
 	void bfsTraversal(BTNode*);
 	void inPlaceMirror(BTNode*);
 	bool myAncestors(BTNode*,int);
-	
+	int isBST();
+	int isBSTUtil(BTNode*,int,int);
+	int getCeil(BTNode*,int);
+
 	//yet to finish 
 	int getWidth(BTNode*);
 	int isBalanced(BTNode*);
@@ -216,11 +219,45 @@ bool BinaryTree :: myAncestors(BTNode* node,int target)
 
 	if(myAncestors(node->left,target) || myAncestors(node->right,target))
 	{
-		cout << node -> data << " ";
+		cout << noded -> data << " ";
 		return true;
 	}
 
 	return false;
+}
+
+int BinaryTree :: getCeil(BTNode* node,int value)
+{
+	if(node == NULL)
+		return -1;
+
+	if(node -> data == value)
+		return node -> data;
+
+	if(node -> data < value)
+		return getCeil(node -> right,value);
+
+	/* Complicated a little 
+	   return current value if ceil goes negative i.e. no other node is present */
+	
+	int ceil = getCeil(node -> left,value);
+	return (ceil>=value)?ceil:root->data;
+}
+
+int BinaryTree :: isBST()
+{
+	return(isBSTUtil(this->root,INT_MIN,INT_MAX));
+}
+
+int BinaryTree :: isBSTUtil(BTNode *node,int min,int max)
+{
+ 	if(node == NULL)
+ 		return 1;
+
+ 	if(node -> data < min || node -> data > max)
+ 		return 0;
+
+ 	return isBSTUtil(node->left,min,node->data-1) && isBSTUtil(node->right,node->data+1,max);
 }
 
 int BinaryTree :: isBalanced(BTNode* node)

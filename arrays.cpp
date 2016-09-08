@@ -42,12 +42,15 @@ public:
 	void printMaximum();
 	void findMinDistance(int,int);
 	void findDuplicates();
+	bool areConsecutives();
 	int findFixedPoint(int,int);
 	int findMaxSumNoAdj();
 	int findMajorityEle();
 	int findCandidate();
 	int searchInCircularSorted(int);
 	int maxContigSum();
+	int getMax();
+	int getMin();
 
 };
 
@@ -260,7 +263,7 @@ void ArrayProblems :: twoRepeaters()
 	x = (D + S)/2;
 	y = (S - D)/2;
 
-	cout << 	endl << "Repeaters : " << x << " " << y;
+	cout << endl << "Repeaters : " << x << " " << y;
 }
 
 void ArrayProblems :: findUnsortedRegion()
@@ -455,6 +458,34 @@ void ArrayProblems :: printMaximum()
 		cout << array[i];
 }
 
+// 8th September 2016
+bool ArrayProblems :: areConsecutives()
+{
+	int max = getMax();
+	int min = getMin();
+	int temp;
+
+	if(max - min + 1 == size)
+	{
+		for(int i=0;i<size;i++)
+		{
+			if(array[i] < 0)
+				temp = -array[i] - min;
+			else
+				temp = array[i] - min;
+
+			if(array[temp] > 0)
+				array[temp] = -array[temp];
+			else
+				return false;
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
 bool myCompare(string x,string y)
 {
 	return x+y > y+x; 
@@ -563,6 +594,26 @@ int ArrayProblems :: maxContigSum()
 int* ArrayProblems :: getLocation()
 {
 	return array;
+}
+
+int ArrayProblems :: getMin()
+{
+	int max = array[0];
+	for(int i=1;i<size;i++)
+		if(max < array[i])
+			max = array[i];
+
+	return max;
+}
+
+int ArrayProblems :: getMax()
+{
+	int min = array[0];
+	for(int i=1;i<size;i++)
+		if(min > array[i])
+			min = array[i];
+
+	return min;
 }
 
 int main()

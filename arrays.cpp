@@ -42,6 +42,7 @@ public:
 	void printMaximum();
 	void findMinDistance(int,int);
 	void findDuplicates();
+	void maxBitonicSeq();
 	bool areConsecutives();
 	int findFixedPoint(int,int);
 	int findMaxSumNoAdj();
@@ -484,6 +485,40 @@ bool ArrayProblems :: areConsecutives()
 	}
 
 	return false;
+}
+
+// 9th September 2016
+// Longest Bitonic sequence
+void ArrayProblems :: maxBitonicSeq()
+{
+	unsigned lis[size],lds[size];
+
+	lis[0] = 1;
+	lds[size-1] = 1;
+	for(int i=1;i<size;i++)
+	{
+		if(array[i] > array[i-1])
+			lis[i] = lis[i-1] + 1;
+		else
+			lis[i] = 1;
+	}
+
+	for(int i=size-2;i>=0;i--)
+	{
+		if(array[i] > array[i-1])
+			lds[i] = lds[i+1] + 1;
+		else
+			lds[i] = 1;
+	}
+
+	unsigned max = lis[0] + lds[0] - 1;
+	for(int i=1;i<size;i++)
+	{
+		if(lis[i]+lds[i]-1 > max)
+			max = lis[i]+lds[i]-1;
+	}
+
+	cout << endl << "Maximum Bitonic Seq: " << max;
 }
 
 bool myCompare(string x,string y)

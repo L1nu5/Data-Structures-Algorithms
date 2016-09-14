@@ -1,5 +1,6 @@
-// Added Dutch National Flag problem & solution
-// Some of the following functions work as set of 2
+/**
+ * BEWARE ALL THE FUNCTIONS ARE UNTESTED & THE WHOLE SOURCE CODE HASN'T BEEN COMPILED YET.
+ */
 
 
 #include <cmath>
@@ -43,6 +44,7 @@ public:
 	void findMinDistance(int,int);
 	void findDuplicates();
 	void maxBitonicSeq();
+	void findSingle();
 	bool areConsecutives();
 	int findFixedPoint(int,int);
 	int findMaxSumNoAdj();
@@ -552,6 +554,17 @@ int ArrayProblems :: findCandidate()
 	}
 
 	return array[maj_index];
+}
+
+// 15th September 2016
+// requires repeating numbers to be occuring in even count
+void ArrayProblems :: findSingle()
+{
+	res = 0;
+	for(int i=0;i<n;i++)
+		res = res ^ array[i];
+
+	cout << endl << "Single: " << res;
 }
 
 // Moderately difficult problem

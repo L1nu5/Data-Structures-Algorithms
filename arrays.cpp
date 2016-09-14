@@ -46,6 +46,7 @@ public:
 	void maxBitonicSeq();
 	void findSingle();
 	bool areConsecutives();
+	int *constrOrig();
 	int findFixedPoint(int,int);
 	int findMaxSumNoAdj();
 	int findMajorityEle();
@@ -560,11 +561,22 @@ int ArrayProblems :: findCandidate()
 // requires repeating numbers to be occuring in even count
 void ArrayProblems :: findSingle()
 {
-	res = 0;
-	for(int i=0;i<n;i++)
+	int res = 0;
+	for(int i=0;i<size;i++)
 		res = res ^ array[i];
 
 	cout << endl << "Single: " << res;
+}
+
+// Construct original from Pair-Sum
+int *ArrayProblems :: constrOrig()
+{
+	int orig[size];
+	orig[0] = (array[0]+array[1]-array[n-1])/2;
+	for(int i=1;i<size;i++)
+		orig[i] = array[i-1] - orig[0]; 
+
+
 }
 
 // Moderately difficult problem

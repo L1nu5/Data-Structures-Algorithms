@@ -27,6 +27,7 @@ public:
 	//Problems & Solutions
 	void findSumX(int); 
 	void findSumXforTwo(int); 
+	void findTripletForX(int);
 	void revRotate(int);
 	void reverse(int,int);
 	void swap(int &,int &);
@@ -155,6 +156,34 @@ void ArrayProblems :: findSumX(int x)
 			cout << endl << "Pair with given sum exists: " << array[i] << " " << temp;
 		binMap[array[i]] = 1;
 	}
+}
+
+// 17th September 2016 
+void ArrayProblems :: findTripletForX(int x)
+{
+	sort(array,array+size);
+	
+	unsigned l,r;
+
+	for(int i=0;i<size-2;i++)
+	{
+		l = i + 1;
+		r = size - 1;
+
+		while(l < r)
+		{
+			if((array[i] + array[l] + array[r]) == sum){
+				cout << endl << "TRUE! : " << array[i] << " " << array[l] << " " << array[r];
+				return ;
+			}
+			else if(array[i] + array[l] + array[r] > sum)
+				r --;
+			else
+				l ++;
+		}
+	}
+
+	cout << "NOPE! None."
 }
 
 void ArrayProblems :: reverse(int start,int end)
@@ -578,6 +607,8 @@ int *ArrayProblems :: constrOrig()
 
 
 }
+
+// 17th September 2016
 
 // Moderately difficult problem
 int ArrayProblems :: findMaxSumNoAdj()

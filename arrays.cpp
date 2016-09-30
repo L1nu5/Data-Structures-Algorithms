@@ -5,6 +5,9 @@
 
 #include <cmath>
 #include <stack>
+#include <cstdio>
+#include <ctime>
+#include <cstdlib>
 #include <iostream>
 #include <algorithm>
 
@@ -46,6 +49,7 @@ public:
 	void findDuplicates();
 	void maxBitonicSeq();
 	void findSingle();
+	void shuffleArray();
 	bool areConsecutives();
 	int *constrOrig();
 	int findFixedPoint(int,int);
@@ -598,9 +602,11 @@ void ArrayProblems :: findSingle()
 }
 
 // Construct original from Pair-Sum
+// REQUIRES SIZE OF ORIGINAL ARRAY!
 int *ArrayProblems :: constrOrig()
 {
 	int orig[size];
+	// Here 'n' = size of the ORIGINAL array & not the pair[]
 	orig[0] = (array[0]+array[1]-array[n-1])/2;
 	for(int i=1;i<size;i++)
 		orig[i] = array[i-1] - orig[0]; 
@@ -608,7 +614,17 @@ int *ArrayProblems :: constrOrig()
 
 }
 
-// 17th September 2016
+// 1st October 2016
+// Shuffle Array
+void ArrayProblems :: shuffleArray()
+{
+	srand(time(NULL));
+	for(int i=n-1;i>0;i--){
+		int j = rand() % (i+1);
+
+		swap(&array[i],&array[j]);
+	}
+}
 
 // Moderately difficult problem
 int ArrayProblems :: findMaxSumNoAdj()
